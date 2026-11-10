@@ -11,6 +11,8 @@ A beginner-friendly Python tool that checks the basic health of a software repos
 - Checks whether the `tests/` directory exists and is non-empty.
 - Lists missing files and directories in the report.
 - Displays a repository health score based on the checks passed.
+- Supports both interactive prompts and command-line arguments.
+- Supports `--json` machine-readable output and `--fail-under` thresholds for CI/CD workflows.
 
 ## Requirements
 
@@ -34,11 +36,27 @@ py -m pip install -e ".[dev]"
 
 ### 3. Run the checker
 
+You can run the checker using the installed console script:
+
 ```bash
-py -c "from repo_health_checker.cli import main; main()"
+# Run interactively (prompts for repository path)
+repo-health-checker
+
+# Or provide the repository path directly
+repo-health-checker path/to/repo
+
+# Output JSON report
+repo-health-checker path/to/repo --json
+
+# Enforce a minimum health score threshold (useful in CI)
+repo-health-checker path/to/repo --fail-under 80
 ```
 
-When prompted, enter the path to the repository you want to check.
+Alternatively, you can run it via Python directly:
+
+```bash
+py -m repo_health_checker.cli path/to/repo
+```
 
 ### 4. Run the tests
 
